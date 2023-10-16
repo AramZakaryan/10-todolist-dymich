@@ -33,18 +33,26 @@ export const changeFilterCondAC = (todolistId: string, updatedFilterCond: CondTy
     updatedFilterCond
 }) as const
 
-export const todolistsReducer = (state: todolistType[], action: todolistActionType): todolistType[] => {
+export const todolistId1 = v1()
+export const todolistId2 = v1()
+
+const initialState: todolistType[] = [
+    {id: todolistId1, todolistTitle: "What to learn?", filterCond: "All"},
+    {id: todolistId2, todolistTitle: "What to buy?", filterCond: "All"}
+]
+
+export const todolistsReducer = (state: todolistType[] = initialState, action: todolistActionType): todolistType[] => {
     switch (action.type) {
         case "REMOVE-TODOLIST":
             return state.filter(tl => tl.id !== action.todolistId)
         case "ADD-TODOLIST":
             return [
-                ...state,
                 {
                     id: action.todolistId,
                     todolistTitle: action.todolistTitle,
                     filterCond: "All"
-                }
+                },
+                ...state
             ]
         case "CHANGE-TODOLIST-TITLE":
             const updatedTodolist1 = state.find(tl => tl.id === action.todolistId)
@@ -63,6 +71,6 @@ export const todolistsReducer = (state: todolistType[], action: todolistActionTy
                 throw new Error("todolist.id is not correct, so todolist filterCond cannot be changed")
             }
         default:
-            throw new Error("action.type is not correct")
+            return state
     }
 }

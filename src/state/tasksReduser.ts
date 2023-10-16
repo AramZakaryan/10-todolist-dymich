@@ -1,6 +1,6 @@
 import {allTasksType, CondType, todolistType} from "../App";
 import {v1} from "uuid";
-import {addTodolistActionType, remTodolistActionType} from "./todolistsReduser";
+import {addTodolistActionType, remTodolistActionType, todolistId1, todolistId2} from "./todolistsReduser";
 
 export type tasksActionType = removeTaskActionType
     | addTaskActionType
@@ -42,7 +42,20 @@ export const changeTaskTitleAC = (todolistId: string, id: string, title: string)
 }) as const
 
 
-export const tasksReducer = (state: allTasksType, action: tasksActionType): allTasksType => {
+const initialState: allTasksType = {
+    [todolistId1]: [
+        {id: v1(), title: "CSS & HTML", isDone: false},
+        {id: v1(), title: "JS", isDone: false},
+        {id: v1(), title: "React", isDone: false},
+        {id: v1(), title: "Redux", isDone: false}
+    ],
+    [todolistId2]: [
+        {id: v1(), title: "Book", isDone: false},
+        {id: v1(), title: "Milk", isDone: true},
+    ],
+}
+
+export const tasksReducer = (state: allTasksType = initialState, action: tasksActionType): allTasksType => {
     switch (action.type) {
         case "REMOVE-TASK":
             return {
@@ -96,6 +109,6 @@ export const tasksReducer = (state: allTasksType, action: tasksActionType): allT
             const {[action.todolistId]: {}, ...restState} = state
             return restState
         default:
-            throw new Error("action.type is not correct")
+            return state
     }
 }

@@ -60,7 +60,7 @@ test("Correct todolist (with corresponding tasks) should be added", () => {
     // expectation
     expect(updatedTodolistsState.length).toBe(3)
     expect(Object.keys(updatedTasksState).length).toBe(3)
-    expect(updatedTodolistsState[2].id).toBe(Object.keys(updatedTasksState)[2])
+    expect(updatedTodolistsState[0].id).toBe(Object.keys(updatedTasksState)[2])
 
 })
 

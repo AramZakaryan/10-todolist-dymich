@@ -52,9 +52,9 @@ test("Correct todolist should be added", () => {
 
     // expectation
     expect(updatedState.length).toBe(3)
-    expect(updatedState[2].todolistTitle).toBe(newTodolistTitle)
-    expect(updatedState[2].filterCond).toBe("All")
-    expect(updatedState[2].id).toBe(newTodolistId)
+    expect(updatedState[0].todolistTitle).toBe(newTodolistTitle)
+    expect(updatedState[0].filterCond).toBe("All")
+    expect(updatedState[0].id).toBe(newTodolistId)
 
 })
 
